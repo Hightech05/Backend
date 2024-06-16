@@ -400,7 +400,7 @@ const getUserChannelProfile = asyncHandler(async(req, res)=> {
                 },
                 isSubscribed:{
                     $cond:{
-                        if:{$in: [req.user?._id,"subscribers"]},
+                        if:{$in: [req.user?._id,"$subscribers.subscriber"]},
                         then:true,
                         else:false
                     }
@@ -474,7 +474,7 @@ const getWatchHistory = asyncHandler(async(req, res)=> {
 
     return res
     .status(200)
-    .json(new ApiResponse(200,user[0].getWatchHistory, "watch history fetched successfully"))
+    .json(new ApiResponse(200,user[0].watchHistory, "watch history fetched successfully"))
 })
 
 
